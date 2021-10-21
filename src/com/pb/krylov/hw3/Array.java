@@ -26,9 +26,9 @@ public class Array {
         System.out.println("Число позитивных элементов массива :" + countpositive);
 
         //Сортировка
-        int tmp;
+       /* int tmp;
         boolean isswap = true;
-        for (int i = array.length - 1; i > 0; i--) {
+           for (int i = array.length - 1; i > 0; i--) {
             if (isswap) {
                 isswap=false;
                 for (int j = 0; j < i; j++) {
@@ -40,7 +40,20 @@ public class Array {
                     }
                 }
             } else break;
-        }
+        }*/
+        int n= array.length;
+        do {
+            int newn=0;
+            for (int j=1;j<(n);j++){
+                if (array[j-1] > array[j]) {
+                    int tmp = array[j - 1];
+                    array[j - 1] = array[j];
+                    array[j] = tmp;
+                    newn = j;
+                }
+            }
+            n=newn;
+        }while (n>0);
 
 
         // Специальная запись цикла for для прохождения элементов массива (Java 8)
