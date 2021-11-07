@@ -17,7 +17,7 @@ public class Animal {
         this.location = location;
     }
 
-    public String  food, location;
+    private String  food, location;
     public void sleep() {
         System.out.println(" спит...");
             }

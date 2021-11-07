@@ -4,8 +4,8 @@ public class Dog extends Animal{
     public String  Angry;
 
     public Dog(String angry) {
-        food="мясо";
-        location="будка";
+        setFood("мясо");
+        setLocation("будка");
         Angry = angry;
     }
 }
