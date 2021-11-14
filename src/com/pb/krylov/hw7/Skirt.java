@@ -7,6 +7,6 @@ public class Skirt extends Clothes implements WomenClothes{
 
     @Override
     public void dressWomen() {
-        System.out.println("Юбку одевает женщина");
+        System.out.println("Юбку одевает женщина ");
     }
 }
