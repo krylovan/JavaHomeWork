@@ -21,7 +21,7 @@ public class Main {
         List<Person> persons = new ArrayList<Person>();
         persons.add(new Person("Ira", new ArrayList<String>(), "Pavlograd", LocalDate.of(2000, 5, 2)));
         persons.get(0).addPhone("11111");
-        persons.add(new Person("Andrew", new ArrayList<String>(), "Pavlograd", LocalDate.of(2000, 5, 2)));
+        persons.add(new Person("Andrew", new ArrayList<String>(), "Pavlograd", LocalDate.of(20084, 5, 2)));
         persons.get(1).addPhone("561");
         persons.get(1).addPhone("61");
         persons.add(new Person("Ivan", Arrays.asList("201","202","203"), "Dnipro", LocalDate.of(2001, 11, 22)));
@@ -37,9 +37,6 @@ public class Main {
         module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         mapper.registerModule(module);
-        //ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        //ObjectReader reader = mapper.reader(List.class);
-        //ObjectReader reader2 = mapper.reader(List.class);
 
 
         Scanner scan = new Scanner(System.in);
@@ -74,24 +71,32 @@ public class Main {
                 case "3":
                     System.out.println("Введите имя для поиска: ");
                     String fName = scan.nextLine();
-                    for (Person fp: persons) {
-                        if (fp.getName().equals(fName)) {
-                            persons.indexOf(fp);
-                            System.out.println("["+persons.indexOf(fp)+"]"+fp);
-                        }
-                    }
+                    persons.stream().filter(l->l.getName().equals(fName)).forEach(System.out::println);
+//                    for (Person fp: persons) {
+//                        if (fp.getName().equals(fName)) {
+//                            persons.indexOf(fp);
+//                            System.out.println("["+persons.indexOf(fp)+"]"+fp);
+//                        }
+//                    }
                     break;
                 case "4":
                     System.out.println("Сортировка " );
-                    printWithIndex(persons);
-                    System.out.println("Сортировка 0-по дате иначе по имени: ");
+                    System.out.println("Сортировка 0-по дате рождения, 1- по дате редактирования иначе по имени: ");
                     int sort = Integer.parseInt(scan.nextLine());
-                    if (sort==0) {
-                        Collections.sort(persons, new Person.PersonTimeComparator());
-                    }else {
-                        Collections.sort(persons);
-                    }
-                    printWithIndex(persons);
+                    if (sort==0){
+                        persons.stream().sorted((p1, p2) -> p1.getDateOfBirth().compareTo(p2.getDateOfBirth())).forEach(System.out::println);
+                    } else if (sort == 1){
+                        persons.stream().sorted((p1, p2) -> p1.getDateTimeEdit().compareTo(p2.getDateTimeEdit())).forEach(System.out::println);
+                    } else
+                        persons.stream().sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).forEach(System.out::println);
+
+
+//                    if (sort==0) {
+//                        Collections.sort(persons, new Person.PersonTimeComparator());
+//                    }else {
+//                        Collections.sort(persons);
+//                    }
+//                    printWithIndex(persons);
                     break;
                 case "5":
                     System.out.println("Редактирование элемента " );
@@ -144,8 +149,7 @@ public class Main {
 
     private static void printWithIndex(List<Person> arrayList ) {
         for (int i = 0; i < arrayList.size(); i++) {
-            System.out.print(i+" ");
-            System.out.println(arrayList.get(i));
+            System.out.print(i+" "+arrayList.get(i));
         }
     }
 
