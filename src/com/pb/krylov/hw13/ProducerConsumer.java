@@ -21,7 +21,7 @@ public class ProducerConsumer {
             for (int i = 0; i < 50; i++) {
                 synchronized (buffer) {
                     try {
-                        if (buffer.isEmpty()) {
+                        while (buffer.isEmpty()) {
                             System.out.println("\u001B[31m" + threadName + " Буффер пустой " + "\u001B[0m");
                             buffer.wait();
                         }
@@ -56,7 +56,7 @@ public class ProducerConsumer {
             for (int i = 0; i < 50; i++) {
                 synchronized (buffer) {
                     try {
-                        if (buffer.isFull()) {
+                        while (buffer.isFull()) {
                             System.out.println("\u001B[31m" + threadName + " Буффер заполнен " + "\u001B[0m");
                             buffer.wait();
                         }
@@ -86,14 +86,17 @@ public class ProducerConsumer {
 
         Thread writerA = new Thread(new Writer(writeLock, buffer, "a"));
         writerA.setName("Producer");
+        Thread writerB = new Thread(new Writer(writeLock, buffer, "a"));
+        writerB.setName("Producer2");
         Thread reader1 = new Thread(new Reader(readLock, buffer));
         reader1.setName("Consumer");
         Thread reader2 = new Thread(new Reader(readLock, buffer));
-        reader2.setName("Reader2");
+        reader2.setName("Consumer2");
         reader1.start();
-        // reader2.start();
+        //reader2.start();
 
         writerA.start();
+        //writerB.start();
 
 
     }
