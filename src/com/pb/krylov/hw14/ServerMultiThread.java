@@ -34,9 +34,9 @@ public class ServerMultiThread {
                     }
                     System.out.println(clientMessage);
                     // имитация долгой обработки запроса
-                    System.out.println("Ждем  имитируя долгу обработку");
+                    System.out.println("Ждем  имитируя долгую обработку");
                     Thread.sleep(3 * 1000);
-                    out.println("Сервер: " +LocalDateTime.now().toString()+ clientMessage);
+                    out.println("Сервер: " +LocalDateTime.now().toString()+" "+ clientMessage);
                 }
 
 
@@ -59,7 +59,6 @@ public class ServerMultiThread {
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Сервер запущен на порту : " + port);
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
-
         // В цикле ждем запроса клиента
         while (true) {
             Socket clientSocket = serverSocket.accept();
